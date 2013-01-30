@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Aspxzipit-installer : Rackspace CloudSites content and MSSQL backup utility. Rackspace Cloud API KEY required for use." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Aspxzipit-installer</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/onesandzeros415/ASPXZipIt-Installer">View on GitHub</a>
+
+          <h1 id="project_title">Aspxzipit-installer</h1>
+          <h2 id="project_tagline">Rackspace CloudSites content and MSSQL backup utility. Rackspace Cloud API KEY required for use.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/onesandzeros415/ASPXZipIt-Installer/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/onesandzeros415/ASPXZipIt-Installer/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>ASPXZipIt-Installer</h1>
+
+<p>This is a self install tool for Rackspace CloudSites IIS customers to allow for backing up of their web content and MSSQL database to their CloudFiles account.</p>
+
+<p>Installer supports both .NET 3.5, .NET 4.0, and .NET 4.5 without any modification necessary.  Compression is made possible through the <a href="http://dotnetzip.codeplex.com/">DotNetZip Library</a>. </p>
+
+<p>Instructions:</p>
+
+<ol>
+<li> Download zip or tar from above.</li>
+<li> Uncompress your zip or tar locally on your computer.</li>
+<li> Upload ASPXZipIt-Installer.aspx to the root of your web site: \fs4-n01\stor3wc2dfw1\xxx\<a href="http://www.yourdomain.com%5Cweb%5Ccontent%5CASPXZipIt-Installer.aspx">www.yourdomain.com\web\content\ASPXZipIt-Installer.aspx</a>
+</li>
+<li> Open a browser and browse to ASPXZipIt Installer: <a href="http://www.yourdomain.com/ASPXZipIt-Installer.aspx">www.yourdomain.com/ASPXZipIt-Installer.aspx</a>
+</li>
+<li> Select your .NET version 3.5 or 4.0</li>
+<li> Click install ASPXZIPIT</li>
+<li>
+<p>In ftp navigate to \fs4-n01\stor3wc2dfw1\xxx\<a href="http://www.yourdomain.com%5Cweb%5Ccontent%5Caspxzipit%5C">www.yourdomain.com\web\content\aspxzipit\</a> and edit the following values in the Web.config file:</p>
+
+<p><code>&lt;add key="CloudFilesUserName" value="USERNAME GOES HERE" /&gt; and
+&lt;add key="CloudFilesApiKey" value="APIKEYGOES HERE" /&gt;</code></p>
+</li>
+<li><p>In ftp set your content directory permissions to 770.  To do this navigate to \fs4-n01\stor3wc2dfw1\xxx\<a href="http://www.yourdomain.com%5Cweb%5Ccontent%5C">www.yourdomain.com\web\content\</a> with your preferred FTP program and apply a permission set of 770.</p></li>
+<li><p>Browse to ASPXZipIt and Begin backing up your site: <a href="http://www.yourdomain.com/aspxzipit">www.yourdomain.com/aspxzipit</a></p></li>
+</ol><p>For access to compiled versions of ASPXZipIt for manual install please see the following:</p>
+
+<p>ASP.NET 3.5:
+<a href="https://github.com/onesandzeros415/ASPXZipIt-NET35/">https://github.com/onesandzeros415/ASPXZipIt-NET35/</a></p>
+
+<p>ASP.NET 4.0
+<a href="https://github.com/onesandzeros415/ASPXZipIt-NET35/">https://github.com/onesandzeros415/ASPXZipIt-NET35/</a></p>
+
+<p>MSSQL Backup Utility:</p>
+
+<p>Things to note:</p>
+
+<p>MSSQL Server must be setup to write to a share with appropriate permissions in place.  The utility essentially has mssql write 
+a backup file to disk and then IIS zips and uploads to CloudFiles.</p>
+
+<p>In order to use the MSSQL Backup Utility please be sure to install the following stored procedure:</p>
+
+<ol>
+<li>To install a stored procedure open up SSMS (SQL Server Management Studio) <br>
+</li>
+<li>Select New Query in the upper right hand corener.  <br>
+</li>
+<li>In the query window enter the following:<br>
+</li>
+</ol><hr><p>set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+GO</p>
+
+<p>CREATE PROCEDURE [dbo].[FullBackup]
+@FileName nvarchar(256)
+AS
+BEGIN</p>
+
+<p>SET NOCOUNT ON;</p>
+
+<p>BACKUP DATABASE [123456_YourDatabase] TO DISK = @FileName WITH COPY_ONLY, NOFORMAT, NOINIT, NAME = N'Full Database Backup', SKIP, NOREWIND, NOUNLOAD, STATS = 10</p>
+
+<p>END</p>
+
+<hr><p>Note:  You do not have to do step three if you use the Install Stored Procedure Button.</p>
+
+<ol>
+<li>Be sure to enter your actual database name where [123456_YourDatabase] is.  <br>
+</li>
+<li>Hit Execute to install the query.<br>
+</li>
+<li>You can now backup your databse to Rackspace CloudFiles.<br>
+</li>
+</ol>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Aspxzipit-installer maintained by <a href="https://github.com/onesandzeros415">onesandzeros415</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-34098471-6");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+
+  </body>
+</html>
