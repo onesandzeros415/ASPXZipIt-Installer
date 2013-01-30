@@ -1,4 +1,4 @@
 ASPXZipIt-Installer
 ===================
 
-Rackspace CloudSites content and MSSQL backup utility. Rackspace Cloud API KEY required for use.
+This is a self install tool for Rackspace CloudSites IIS customers to allow for backing up of their web content and MSSQL database.
