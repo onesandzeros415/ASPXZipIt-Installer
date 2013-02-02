@@ -16,7 +16,7 @@
 <script runat="server">
 
     //ASPXZipIt Designed and Mainted By: Matthew Costello, 1/28/2013, San Antonio, Texas.
-    
+
     string timestamp = DateTime.Now.ToString("MM-dd-yyyy_HH-mm-ss");
 
     protected void Page_Load(object sender, EventArgs e)
@@ -178,12 +178,11 @@
             string installerpath_images = path + "/aspxzipit" + "/Images";
             string installerpath_styles = path + "/aspxzipit" + "/styles";
 
-            DirectoryInfo dirInfo1 = new DirectoryInfo(installerpath_bin);
-            DirectoryInfo dirInfo2 = new DirectoryInfo(installerpath_aspxzipit);
-            DirectoryInfo dirInfo3 = new DirectoryInfo(installerpath_progress);
-            DirectoryInfo dirInfo4 = new DirectoryInfo(installerpath_images);
-            DirectoryInfo dirInfo5 = new DirectoryInfo(installerpath_styles);
-            
+            DirectoryInfo dirInfo1 = new DirectoryInfo(installerpath_aspxzipit);
+            DirectoryInfo dirInfo2 = new DirectoryInfo(installerpath_progress);
+            DirectoryInfo dirInfo3 = new DirectoryInfo(installerpath_images);
+            DirectoryInfo dirInfo4 = new DirectoryInfo(installerpath_styles);
+
             foreach (FileInfo f in dirInfo1.GetFiles())
             {
                 f.Delete();
@@ -200,11 +199,7 @@
             {
                 f.Delete();
             }
-            foreach (FileInfo f in dirInfo5.GetFiles())
-            {
-                f.Delete();
-            }
-            
+
             FileInfo fi1 = new FileInfo(installerpath_bin + filename1);
             FileInfo fi2 = new FileInfo(installerpath_bin + filename2);
             FileInfo fi3 = new FileInfo(installerpath_bin + filename3);
@@ -216,7 +211,7 @@
             fi3.Delete();
             fi4.Delete();
             fi5.Delete();
-            
+
             Directory.Delete(installerpath_progress);
             Directory.Delete(installerpath_images);
             Directory.Delete(installerpath_styles);
