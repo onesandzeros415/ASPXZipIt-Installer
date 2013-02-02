@@ -79,6 +79,7 @@
         string LogResults1 = timestamp + "AspxZipIt install has begun.                                                     \r\n";
         string LogResults2 = timestamp + "AspxZipIt has been successfully installed to:" + installerpath_bin + "           \r\n";
         string LogResults3 = timestamp + "Application has been successfully rebuilt.                                       \r\n";
+        string LogResults4 = timestamp + "Please add your CloudFiles API Information to:" + installerpath_aspxzipit + filename9 + "    \r\n";
 
         Directory.CreateDirectory(installerpath_bin);
         Directory.CreateDirectory(installerpath_aspxzipit);
@@ -114,7 +115,9 @@
 
                 lblInfo.Text = "Installed ASPXZipIt for .NET Version 3.5";
 
-                Response.Redirect("/aspxzipit/Default.aspx", true);
+                EventLogReporting(LogResults4);
+
+                Response.Redirect("/aspxzipit/zipit-logs.aspx", true);
             }
             catch (Exception ex)
             {
@@ -149,7 +152,9 @@
 
                 lblInfo.Text = "Installed ASPXZipIt for .NET Version 4.0";
 
-                Response.Redirect("/aspxzipit/Default.aspx", true);
+                EventLogReporting(LogResults4);
+                
+                Response.Redirect("/aspxzipit/zipit-logs.aspx", true);
             }
             catch (Exception ex)
             {
