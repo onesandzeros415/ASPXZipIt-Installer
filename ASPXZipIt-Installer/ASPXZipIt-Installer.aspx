@@ -166,11 +166,8 @@
         try
         {
             string path = Server.MapPath("~/");
-            string filename1 = "/Ionic.Zip.dll";
-            string filename2 = "/ASPXZipIt-NET35.dll";
-            string filename3 = "/ASPXZipIt-NET40.dll";
-            string filename4 = "/OpenStack.Swift.dll";
-            string filename5 = "/Rackspace.Cloudfiles.dll";
+            string filename1 = "/ASPXZipIt-NET35.dll";
+            string filename2 = "/ASPXZipIt-NET40.dll";
 
             string installerpath_bin = path + "/bin";
             string installerpath_aspxzipit = path + "/aspxzipit";
@@ -202,15 +199,9 @@
 
             FileInfo fi1 = new FileInfo(installerpath_bin + filename1);
             FileInfo fi2 = new FileInfo(installerpath_bin + filename2);
-            FileInfo fi3 = new FileInfo(installerpath_bin + filename3);
-            FileInfo fi4 = new FileInfo(installerpath_bin + filename4);
-            FileInfo fi5 = new FileInfo(installerpath_bin + filename5);
 
             fi1.Delete();
             fi2.Delete();
-            fi3.Delete();
-            fi4.Delete();
-            fi5.Delete();
 
             Directory.Delete(installerpath_progress);
             Directory.Delete(installerpath_images);
