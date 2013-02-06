@@ -39,23 +39,24 @@
 
 <p>Instructions:</p>
 
-<ol>
-<li> Download zip or tar from above.</li>
-<li> Uncompress your zip or tar locally on your computer.</li>
-<li> Upload ASPXZipIt-Installer.aspx to the root of your web site: \fs4-n01\stor3wc2dfw1\xxx\<a href="http://www.yourdomain.com%5Cweb%5Ccontent%5CASPXZipIt-Installer.aspx">www.yourdomain.com\web\content\ASPXZipIt-Installer.aspx</a>
-</li>
-<li> Open a browser and browse to ASPXZipIt Installer: <a href="http://www.yourdomain.com/ASPXZipIt-Installer.aspx">www.yourdomain.com/ASPXZipIt-Installer.aspx</a>
-</li>
-<li> Select your .NET version 3.5 or 4.0</li>
-<li> Click install ASPXZIPIT</li>
-<li> In ftp navigate to \fs4-n01\stor3wc2dfw1\xxx\<a href="http://www.yourdomain.com%5Cweb%5Ccontent%5Caspxzipit%5C">www.yourdomain.com\web\content\aspxzipit\</a> and edit the following values in the Web.config file:</li>
-</ol><p><code>&lt;add key="CloudFilesUserName" value="USERNAME GOES HERE" /&gt;</code> <br><code>&lt;add key="CloudFilesApiKey" value="APIKEYGOES HERE" /&gt;</code></p>
+<p>Step 1.  Download zip or tar from above.<br>
+Step 2.  Uncompress your zip or tar locally on your computer.<br>
+Step 3.  Upload ASPXZipIt-Installer.aspx to the root of your web site: \fs4-n01\stor3wc2dfw1\xxx\<a href="http://www.yourdomain.com%5Cweb%5Ccontent%5CASPXZipIt-Installer.aspx">www.yourdomain.com\web\content\ASPXZipIt-Installer.aspx</a><br>
+Step 4.  Impersonation must be enabled for Installer to work.  Please see <a href="http://www.rackspace.com/knowledge_center/article/how-do-i-add-impersonation-to-my-aspnet-cloud-site">this article</a> for more information.  Edit your web.config and add the following if you do not already have:<br><br></p>
 
-<ol>
-<li>In ftp set your content directory permissions to 770.  To do this navigate to \fs4-n01\stor3wc2dfw1\xxx\<a href="http://www.yourdomain.com%5Cweb%5Ccontent%5C">www.yourdomain.com\web\content\</a> with your preferred FTP program and apply a permission set of 770.</li>
-<li>Browse to ASPXZipIt and Begin backing up your site: <a href="http://www.yourdomain.com/aspxzipit">www.yourdomain.com/aspxzipit</a>
-</li>
-</ol><p>For access to compiled versions of ASPXZipIt for manual install please see the following:</p>
+<p><code>&lt;configuration&gt;</code><br><code>&lt;system.web&gt;</code><br><code>&lt;identity impersonate="true" userName="dfw\USERNAME" password="PASSWORD" /&gt;</code><br><code>&lt;/system.web&gt;</code><br><code>&lt;/configuration&gt;</code><br><br><code>&lt;configuration&gt;</code><br><code>&lt;system.web&gt;</code><br><code>&lt;identity impersonate="true" userName="ord\USERNAME" password="PASSWORD" /&gt;</code><br><code>&lt;/system.web&gt;</code><br><code>&lt;/configuration&gt;</code><br><br></p>
+
+<p>Step 5.  Open a browser and browse to ASPXZipIt Installer: <a href="http://www.yourdomain.com/ASPXZipIt-Installer.aspx">www.yourdomain.com/ASPXZipIt-Installer.aspx</a><br>
+Step 6.  Select your .NET version 3.5 or 4.0<br>
+Step 7.  Click install ASPXZIPIT<br>
+Step 8.  In ftp navigate to \fs4-n01\stor3wc2dfw1\xxx\<a href="http://www.yourdomain.com%5Cweb%5Ccontent%5Caspxzipit%5C">www.yourdomain.com\web\content\aspxzipit\</a> and edit the following values in the Web.config file:<br></p>
+
+<p><code>&lt;add key="CloudFilesUserName" value="USERNAME GOES HERE" /&gt;</code> <br><code>&lt;add key="CloudFilesApiKey" value="APIKEYGOES HERE" /&gt;</code></p>
+
+<p>Step 9. In ftp set your content directory permissions to 770.  To do this navigate to \fs4-n01\stor3wc2dfw1\xxx\<a href="http://www.yourdomain.com%5Cweb%5Ccontent%5C">www.yourdomain.com\web\content\</a> with your preferred FTP program and apply a permission set of 770.<br>
+Step 10. Browse to ASPXZipIt and Begin backing up your site: <a href="http://www.yourdomain.com/aspxzipit">www.yourdomain.com/aspxzipit</a><br><br></p>
+
+<p>For access to compiled versions of ASPXZipIt for manual install please see the following:</p>
 
 <p>ASP.NET 3.5:
 <a href="http://onesandzeros415.github.com/ASPXZipIt-NET35/">http://onesandzeros415.github.com/ASPXZipIt-NET35/</a></p>
@@ -72,38 +73,33 @@ a backup file to disk and then IIS zips and uploads to CloudFiles.</p>
 
 <p>In order to use the MSSQL Backup Utility please be sure to install the following stored procedure:</p>
 
-<ol>
-<li>To install a stored procedure open up SSMS (SQL Server Management Studio) <br>
-</li>
-<li>Select New Query in the upper right hand corener.  <br>
-</li>
-<li>In the query window enter the following:<br>
-</li>
-</ol><hr><p>set ANSI_NULLS ON
-set QUOTED_IDENTIFIER ON
-GO</p>
+<p>Step 1. To install a stored procedure open up SSMS (SQL Server Management Studio) <br>
+Step 2. Select New Query in the upper right hand corener.  <br>
+Step 3. In the query window enter the following:<br></p>
 
-<p>CREATE PROCEDURE [dbo].[FullBackup]
+<pre><code>
+set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[FullBackup]
 @FileName nvarchar(256)
 AS
-BEGIN</p>
+BEGIN
 
-<p>SET NOCOUNT ON;</p>
+SET NOCOUNT ON;
 
-<p>BACKUP DATABASE [123456_YourDatabase] TO DISK = @FileName WITH COPY_ONLY, NOFORMAT, NOINIT, NAME = N'Full Database Backup', SKIP, NOREWIND, NOUNLOAD, STATS = 10</p>
+BACKUP DATABASE [123456_YourDatabase] TO DISK = @FileName WITH COPY_ONLY, NOFORMAT, NOINIT, NAME = N'Full Database Backup', SKIP, NOREWIND, NOUNLOAD, STATS = 10
 
-<p>END</p>
+END
 
-<hr><p>Note:  You do not have to do step three if you use the Install Stored Procedure Button.</p>
+</code></pre>
 
-<ol>
-<li>Be sure to enter your actual database name where [123456_YourDatabase] is.  <br>
-</li>
-<li>Hit Execute to install the query.<br>
-</li>
-<li>You can now backup your databse to Rackspace CloudFiles.<br>
-</li>
-</ol>
+<p>Note:  You skip to step 5 if you use the Install Stored Procedure Button.</p>
+
+<p>Step 4. Be sure to enter your actual database name where [123456_YourDatabase] is.  <br>
+Step 5. Hit Execute to install the query.<br>
+Step 6. You can now backup your databse to Rackspace CloudFiles.<br></p>
       </section>
     </div>
 
