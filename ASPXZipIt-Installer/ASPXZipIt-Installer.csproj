@@ -68,6 +68,7 @@
   <ItemGroup>
     <Content Include="web.config" />
     <None Include="Properties\PublishProfiles\ASPXZipIt-Installer.pubxml" />
+    <None Include="Properties\PublishProfiles\Installer.pubxml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

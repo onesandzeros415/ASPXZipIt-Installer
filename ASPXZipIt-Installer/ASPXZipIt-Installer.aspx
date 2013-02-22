@@ -26,6 +26,7 @@
     protected void installaspxzipit_Click(object sender, EventArgs e)
     {
         string path = Server.MapPath("~/");
+        string aspxzipitinstaller = "/ASPXZipIt-Installer.aspx";
         string filename1 = "/users.xml";
         string filename2 = "/Ionic.Zip.dll";
         string filename3 = "/ASPXZipIt-NET35.dll";
@@ -42,7 +43,7 @@
         string filename14 = "/Web.config";
         string filename15 = "/DBResultPage.aspx";
         string filename16 = "/ResultPage.aspx";
-        string filename17 = "/Updating.gif";
+        string filename17 = "/progress.gif";
         string filename18 = "/StyleSheet.css";
 
 
@@ -89,7 +90,7 @@
                 webClient.DownloadFile("https://github.com/onesandzeros415/ASPXZipIt-NET35/raw/master/aspxzipit/Web.config", @installerpath_aspxzipit + filename14);
                 webClient.DownloadFile("https://github.com/onesandzeros415/ASPXZipIt-NET35/raw/master/aspxzipit/Progress/DBResultPage.aspx", @installerpath_progress + filename15);
                 webClient.DownloadFile("https://github.com/onesandzeros415/ASPXZipIt-NET35/raw/master/aspxzipit/Progress/ResultPage.aspx", @installerpath_progress + filename16);
-                webClient.DownloadFile("https://github.com/onesandzeros415/ASPXZipIt-NET35/raw/master/aspxzipit/images/Updating.gif", @installerpath_images + filename17);
+                webClient.DownloadFile("https://github.com/onesandzeros415/ASPXZipIt-NET35/raw/master/aspxzipit/images/progress.gif", @installerpath_images + filename17);
                 webClient.DownloadFile("https://github.com/onesandzeros415/ASPXZipIt-NET35/raw/master/aspxzipit/styles/StyleSheet.css", @installerpath_styles + filename18);
 
                 EventLogReporting(LogResults2);
@@ -98,8 +99,8 @@
 
                 EventLogReporting(LogResults3);
 
-                UpdateAppSetting("CloudFilesUserName", TxtCloudFilesUserName.ToString());
-                UpdateAppSetting("CloudFilesApiKey", TxtCloudFilesApiKey.ToString());
+                UpdateAppSetting("CloudFilesUserName", TxtCloudFilesUserName.Text);
+                UpdateAppSetting("CloudFilesApiKey", TxtCloudFilesApiKey.Text);
                 UpdateAppSetting("snet", ddlServiceNet.SelectedValue.ToString());
 
                 EventLogReporting(LogResults4);
@@ -107,6 +108,10 @@
                 UpdateASPMembershipPasswd();
 
                 EventLogReporting(LogResults5);
+
+                FileInfo fi1 = new FileInfo(path + aspxzipitinstaller);
+
+                fi1.Delete();
 
                 Response.Redirect("/aspxzipit/Default.aspx", true);
             }
@@ -137,7 +142,7 @@
                 webClient.DownloadFile("https://github.com/onesandzeros415/ASPXZipIt-NET40/raw/master/aspxzipit/Web.config", @installerpath_aspxzipit + filename14);
                 webClient.DownloadFile("https://github.com/onesandzeros415/ASPXZipIt-NET40/raw/master/aspxzipit/Progress/DBResultPage.aspx", @installerpath_progress + filename15);
                 webClient.DownloadFile("https://github.com/onesandzeros415/ASPXZipIt-NET40/raw/master/aspxzipit/Progress/ResultPage.aspx", @installerpath_progress + filename16);
-                webClient.DownloadFile("https://github.com/onesandzeros415/ASPXZipIt-NET40/raw/master/aspxzipit/images/Updating.gif", @installerpath_images + filename17);
+                webClient.DownloadFile("https://github.com/onesandzeros415/ASPXZipIt-NET40/raw/master/aspxzipit/images/progress.gif", @installerpath_images + filename17);
                 webClient.DownloadFile("https://github.com/onesandzeros415/ASPXZipIt-NET40/raw/master/aspxzipit/styles/StyleSheet.css", @installerpath_styles + filename18);
 
                 EventLogReporting(LogResults2);
@@ -146,8 +151,8 @@
 
                 EventLogReporting(LogResults3);
 
-                UpdateAppSetting("CloudFilesUserName", TxtCloudFilesUserName.ToString());
-                UpdateAppSetting("CloudFilesApiKey", TxtCloudFilesApiKey.ToString());
+                UpdateAppSetting("CloudFilesUserName", TxtCloudFilesUserName.Text);
+                UpdateAppSetting("CloudFilesApiKey", TxtCloudFilesApiKey.Text);
                 UpdateAppSetting("snet", ddlServiceNet.SelectedValue.ToString());
 
                 EventLogReporting(LogResults4);
@@ -155,6 +160,10 @@
                 UpdateASPMembershipPasswd();
 
                 EventLogReporting(LogResults5);
+
+                FileInfo fi1 = new FileInfo(path + aspxzipitinstaller);
+
+                fi1.Delete();
 
                 Response.Redirect("/aspxzipit/Default.aspx", true);
             }
@@ -205,15 +214,15 @@
     {
         try
         {
-            var webConfigPath = HttpContext.Current.Server.MapPath("~/aspxzipit/web.config");
-            var xpathToSetting = string.Format("//add[@key='{0}']", name);
-            var xDoc = new XmlDocument();
+            string webConfigPath = HttpContext.Current.Server.MapPath("~/aspxzipit/web.config");
+            string xpathToSetting = string.Format("//add[@key='{0}']", name);
+            XmlDocument xDoc = new XmlDocument();
             xDoc.Load(HttpContext.Current.Server.MapPath("~/aspxzipit/web.config"));
-            var settingNodes = xDoc.GetElementsByTagName("appSettings");
-            var appSettingNode = settingNodes[0].SelectSingleNode(xpathToSetting);
+            XmlNodeList settingNodes = xDoc.GetElementsByTagName("appSettings");
+            XmlNode appSettingNode = settingNodes[0].SelectSingleNode(xpathToSetting);
             if (appSettingNode != null && appSettingNode.Attributes != null)
             {
-                var idAttribute = appSettingNode.Attributes["value"];
+                XmlAttribute idAttribute = appSettingNode.Attributes["value"];
                 if (idAttribute != null)
                 {
                     idAttribute.Value = value;
@@ -236,9 +245,9 @@
 
         try
         {
-            var webConfigPath = Server.MapPath("~/App_Data/users.xml");
+            string webConfigPath = Server.MapPath("~/App_Data/users.xml");
 
-            var xDoc = new XmlDocument();
+            XmlDocument xDoc = new XmlDocument();
             xDoc.Load((webConfigPath));
             XmlNode XmlUserName = xDoc.SelectSingleNode("Users/User/UserName");
 
@@ -249,7 +258,7 @@
                 EventLogReporting(Log1);
             }
 
-            var xDoc2 = new XmlDocument();
+            XmlDocument xDoc2 = new XmlDocument();
             xDoc2.Load((webConfigPath));
             XmlNode XmlPasswd = xDoc.SelectSingleNode("Users/User/Password");
 
@@ -277,6 +286,7 @@
             string filename = "web.config";
             string renamed_filename = "web.config.aspxzipit_renamed";
             string backup_filename = "web.config.aspxzipit_bak";
+            string LogResults1 = timestamp + "  Application has been rebuilt successfully.                            \r\n";
 
             if (File.Exists(path + backup_filename))
             {
@@ -287,12 +297,17 @@
                 File.Copy(path + filename, path + backup_filename);
                 File.Move(path + filename, path + renamed_filename);
                 File.Move(path + renamed_filename, path + filename);
+                File.Delete(path + backup_filename);
+                EventLogReporting(LogResults1);
+                
             }
             else
             {
                 File.Copy(path + filename, path + backup_filename);
                 File.Move(path + filename, path + renamed_filename);
                 File.Move(path + renamed_filename, path + filename);
+                File.Delete(path + backup_filename);
+                EventLogReporting(LogResults1);
             }
         }
         catch (Exception ex)
