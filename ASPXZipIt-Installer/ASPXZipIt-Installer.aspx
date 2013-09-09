@@ -22,15 +22,15 @@
     //Begin process of installing ASPXZipIt
     protected void installAspxZipIt_Click(object sender, EventArgs e)
     {
-        string path = Server.MapPath("~/");
+        string path = Server.MapPath("~\\");
 
-        string installerPath_AppData = path + "/App_Data";
-        string installerPath_bin = path + "/bin";
-        string installerPath_aspxzipit = path + "/aspxzipit";
-        string installerPath_progress = path + "/aspxzipit" + "/Progress";
-        string installerPath_images = path + "/aspxzipit" + "/Images";
-        string installerPath_styles = path + "/aspxzipit" + "/styles";
-        string installerPath_sqlbak = path + "/aspxzipit_sql_bak";
+        string installerPath_AppData = path + "App_Data";
+        string installerPath_bin = path + "bin";
+        string installerPath_aspxzipit = path + "aspxzipit";
+        string installerPath_progress = path + "aspxzipit" + "\\Progress";
+        string installerPath_images = path + "aspxzipit" + "\\Images";
+        string installerPath_styles = path + "aspxzipit" + "\\styles";
+        string installerPath_sqlbak = path + "aspxzipit_sql_bak";
 
         string gitHubDotNetVersion35 = "ASPXZipIt-NET35";
         string gitHubDotNetVersion40 = "ASPXZipIt-NET40";
@@ -100,25 +100,25 @@
     protected void downloadAspxZipIt(string dotNetVersion)
     {
         string path = Server.MapPath("~\\");
-        string aspxZipItInstaller = "/ASPXZipIt-Installer.aspx";
-        string fileName1 = "/users.xml";
-        string fileName2 = "/Ionic.Zip.dll";
-        string fileName3 = "/ASPXZipIt-NET35.dll";
-        string fileName4 = "/ASPXZipIt-NET40.dll";
-        string fileName5 = "/ASPXZipIt-NET45.dll";
-        string fileName6 = "/OpenStack.Swift.dll";
-        string fileName7 = "/Rackspace.Cloudfiles.dll";
-        string fileName8 = "/Default.aspx";
-        string fileName9 = "/zipit-db.aspx";
-        string fileName10 = "/zipit-logs.aspx";
-        string fileName11 = "/zipit-login.aspx";
-        string fileName12 = "/zipit-settings.aspx";
-        string fileName13 = "/zipit-success.aspx";
-        string fileName14 = "/Web.config";
-        string fileName15 = "/DBResultPage.aspx";
-        string fileName16 = "/ResultPage.aspx";
-        string fileName17 = "/progress.gif";
-        string fileName18 = "/StyleSheet.css";
+        string aspxZipItInstaller = "\\ASPXZipIt-Installer.aspx";
+        string fileName1 = "\\users.xml";
+        string fileName2 = "\\Ionic.Zip.dll";
+        string fileName3 = "\\ASPXZipIt-NET35.dll";
+        string fileName4 = "\\ASPXZipIt-NET40.dll";
+        string fileName5 = "\\ASPXZipIt-NET45.dll";
+        string fileName6 = "\\OpenStack.Swift.dll";
+        string fileName7 = "\\Rackspace.Cloudfiles.dll";
+        string fileName8 = "\\Default.aspx";
+        string fileName9 = "\\zipit-db.aspx";
+        string fileName10 = "\\zipit-logs.aspx";
+        string fileName11 = "\\zipit-login.aspx";
+        string fileName12 = "\\zipit-settings.aspx";
+        string fileName13 = "\\zipit-success.aspx";
+        string fileName14 = "\\Web.config";
+        string fileName15 = "\\DBResultPage.aspx";
+        string fileName16 = "\\ResultPage.aspx";
+        string fileName17 = "\\progress.gif";
+        string fileName18 = "\\StyleSheet.css";
 
 
         string installerPath_AppData = path + "App_Data";
@@ -220,7 +220,7 @@
             // Just iterated through the list to issue 10 concurrent async file downloads
             foreach (KeyValuePair<string, string> fi in _srcdstList)
             {
-                downloadLoopSb.Append(DateTime.Now.ToString("MM-dd-yyyy_HH-mm-ss") + "  Downloading : " + fi.Key + "  |  Installing to :" + fi.Value + "<br />");
+                downloadLoopSb.Append(DateTime.Now.ToString("MM-dd-yyyy_HH-mm-ss") + "  Downloading : " + fi.Key + "  |  Installing to :" + fi.Value + "\r\n");
                 
                 WebClient client = new WebClient();
                 client.DownloadFile(fi.Key, fi.Value);
