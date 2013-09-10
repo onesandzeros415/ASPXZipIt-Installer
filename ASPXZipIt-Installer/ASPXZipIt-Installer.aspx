@@ -15,22 +15,49 @@
 
     //ASPXZipIt Designed and Mainted By: Matthew Costello, 1/28/2013, San Antonio, Texas.
     //Updated : 9/7/2013
+
+    protected static string path = HttpContext.Current.Server.MapPath("~\\");
+    string rootwebConfigPath = HttpContext.Current.Server.MapPath("~\\Web.config");
+
+    string aspxZipItInstaller = "\\ASPXZipIt-Installer.aspx";
+    string fileName1 = "\\users.xml";
+    string fileName2 = "\\Ionic.Zip.dll";
+    string fileName3 = "\\ASPXZipIt-NET35.dll";
+    string fileName4 = "\\ASPXZipIt-NET40.dll";
+    string fileName5 = "\\ASPXZipIt-NET45.dll";
+    string fileName6 = "\\OpenStack.Swift.dll";
+    string fileName7 = "\\Rackspace.Cloudfiles.dll";
+    string fileName8 = "\\Default.aspx";
+    string fileName9 = "\\zipit-db.aspx";
+    string fileName10 = "\\zipit-logs.aspx";
+    string fileName11 = "\\zipit-login.aspx";
+    string fileName12 = "\\zipit-settings.aspx";
+    string fileName13 = "\\zipit-success.aspx";
+    string fileName14 = "\\Web.config";
+    string fileName15 = "\\DBResultPage.aspx";
+    string fileName16 = "\\ResultPage.aspx";
+    string fileName17 = "\\progress.gif";
+    string fileName18 = "\\StyleSheet.css";
+    
+    string installerPath_AppData = path + "App_Data";
+    string installerPath_bin = path + "bin";
+    string installerPath_aspxzipit = path + "aspxzipit";
+    string installerPath_progress = path + "aspxzipit" + "\\Progress";
+    string installerPath_images = path + "aspxzipit" + "\\Images";
+    string installerPath_styles = path + "aspxzipit" + "\\styles";
+    string installerPath_sqlbak = path + "aspxzipit_sql_bak";
+
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        checkForFomsAuthentication();
+        checkForASPMembership();
+        rebuildApplication();
     }
+    
     //Begin process of installing ASPXZipIt
     protected void installAspxZipIt_Click(object sender, EventArgs e)
     {
-        string path = Server.MapPath("~\\");
-
-        string installerPath_AppData = path + "App_Data";
-        string installerPath_bin = path + "bin";
-        string installerPath_aspxzipit = path + "aspxzipit";
-        string installerPath_progress = path + "aspxzipit" + "\\Progress";
-        string installerPath_images = path + "aspxzipit" + "\\Images";
-        string installerPath_styles = path + "aspxzipit" + "\\styles";
-        string installerPath_sqlbak = path + "aspxzipit_sql_bak";
+        
 
         string gitHubDotNetVersion35 = "ASPXZipIt-NET35";
         string gitHubDotNetVersion40 = "ASPXZipIt-NET40";
@@ -99,36 +126,6 @@
     //Download ASPXZipIt from GitHub
     protected void downloadAspxZipIt(string dotNetVersion)
     {
-        string path = Server.MapPath("~\\");
-        string aspxZipItInstaller = "\\ASPXZipIt-Installer.aspx";
-        string fileName1 = "\\users.xml";
-        string fileName2 = "\\Ionic.Zip.dll";
-        string fileName3 = "\\ASPXZipIt-NET35.dll";
-        string fileName4 = "\\ASPXZipIt-NET40.dll";
-        string fileName5 = "\\ASPXZipIt-NET45.dll";
-        string fileName6 = "\\OpenStack.Swift.dll";
-        string fileName7 = "\\Rackspace.Cloudfiles.dll";
-        string fileName8 = "\\Default.aspx";
-        string fileName9 = "\\zipit-db.aspx";
-        string fileName10 = "\\zipit-logs.aspx";
-        string fileName11 = "\\zipit-login.aspx";
-        string fileName12 = "\\zipit-settings.aspx";
-        string fileName13 = "\\zipit-success.aspx";
-        string fileName14 = "\\Web.config";
-        string fileName15 = "\\DBResultPage.aspx";
-        string fileName16 = "\\ResultPage.aspx";
-        string fileName17 = "\\progress.gif";
-        string fileName18 = "\\StyleSheet.css";
-
-
-        string installerPath_AppData = path + "App_Data";
-        string installerPath_bin = path + "bin";
-        string installerPath_aspxzipit = path + "aspxzipit";
-        string installerPath_progress = path + "aspxzipit" + "\\Progress";
-        string installerPath_images = path + "aspxzipit" + "\\Images";
-        string installerPath_styles = path + "aspxzipit" + "\\styles";
-        string installerPath_sqlbak = path + "aspxzipit_sql_bak";
-
         string LogResults1 = "  AspxZipIt install has begun.                                                     \r\n";
         string LogResults2 = "  AspxZipIt has been successfully installed to:" + installerPath_aspxzipit + "           \r\n";
         string LogResults3 = "  CloudFiles API Information Written to" + installerPath_aspxzipit + fileName14 + "\r\n";
@@ -205,7 +202,6 @@
 
             // Setting up source and destination and creating a list of the file source and destination.
             List<KeyValuePair<string, string>> _srcdstList = new List<KeyValuePair<string, string>>();
-            
 
             for (int i = 0; i < src.Count; i++)
             {
@@ -214,14 +210,14 @@
 
                 _srcdstList.Add(new KeyValuePair<string, string>(urlPath, dstPath));
             }
-            
+
             StringBuilder downloadLoopSb = new StringBuilder();
-            
+
             // Just iterated through the list to issue 10 concurrent async file downloads
             foreach (KeyValuePair<string, string> fi in _srcdstList)
             {
                 downloadLoopSb.Append(DateTime.Now.ToString("MM-dd-yyyy_HH-mm-ss") + "  Downloading : " + fi.Key + "  |  Installing to :" + fi.Value + "\r\n");
-                
+
                 WebClient client = new WebClient();
                 client.DownloadFile(fi.Key, fi.Value);
                 client.Dispose();
@@ -251,29 +247,17 @@
         }
         catch (Exception ex)
         {
-            lblInfo.Text = "The process failed:" + ex.ToString();
+            string LogResultsError = ex.ToString();
+            EventLogReporting(DateTime.Now.ToString("MM-dd-yyyy_HH-mm-ss") + LogResultsError);
         }
     }
-    protected void manual_RebuildApplication_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            rebuildApplication();
-        }
-        catch (Exception ex)
-        {
-            lblInfo.Text = ex.ToString();
-        }
-
-        lblInfo.Text = "Application has been successfully rebuilt.";
-    }
-    protected static bool UpdateAppSetting(string name, string value)
+    protected void UpdateAppSetting(string name, string value)
     {
         try
         {
             string webConfigPath = HttpContext.Current.Server.MapPath("~/aspxzipit/web.config");
             string xpathToSetting = string.Format("//add[@key='{0}']", name);
-            
+
             XmlDocument xDoc = new XmlDocument();
             //Load web.config
             xDoc.Load(HttpContext.Current.Server.MapPath("~/aspxzipit/web.config"));
@@ -281,7 +265,7 @@
             XmlNodeList settingNodes = xDoc.GetElementsByTagName("appSettings");
             //Select appSettings node
             XmlNode appSettingNode = settingNodes[0].SelectSingleNode(xpathToSetting);
-            
+
             if (appSettingNode != null && appSettingNode.Attributes != null)
             {
                 XmlAttribute idAttribute = appSettingNode.Attributes["value"];
@@ -289,15 +273,13 @@
                 {
                     idAttribute.Value = value;
                     xDoc.Save(webConfigPath);
-                    return true;
                 }
             }
-            return false;
-
         }
         catch (Exception ex)
         {
-            return false;
+            string LogResultsError = ex.ToString();
+            EventLogReporting(DateTime.Now.ToString("MM-dd-yyyy_HH-mm-ss") + LogResultsError);
         }
     }
     protected void updateAspMembershipPasswd()
@@ -336,8 +318,110 @@
         catch (Exception ex)
         {
             string LogResultsError = ex.ToString();
-            EventLogReporting(LogResultsError);
-            lblInfo.Text = "The process failed:" + ex.ToString();
+            EventLogReporting(DateTime.Now.ToString("MM-dd-yyyy_HH-mm-ss") + LogResultsError);
+        }
+    }
+    protected void checkForASPMembership()
+    {
+        XmlDocument FindASPMembership = new XmlDocument();
+        FindASPMembership.Load(rootwebConfigPath);
+        XmlNode xnodes = FindASPMembership.SelectSingleNode("/configuration/system.web/membership");
+
+        try
+        {
+            if (xnodes == null)
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(rootwebConfigPath);
+
+                XmlNode parentNode = doc.SelectSingleNode("/configuration/system.web");
+
+                XmlNode MembershipNode = doc.CreateElement("membership");
+                XmlAttribute MembershipAttribute = doc.CreateAttribute("defaultProvider");
+                MembershipAttribute.Value = "AspNetReadOnlyXmlMembershipProvider";
+                MembershipNode.Attributes.Append(MembershipAttribute);
+
+                XmlNode ProviderNode = doc.CreateElement("providers");
+                MembershipNode.AppendChild(ProviderNode);
+
+                XmlNode MembershipAddNode = doc.CreateElement("add");
+                XmlAttribute MembershipAddAttribute1 = doc.CreateAttribute("name");
+                MembershipAddAttribute1.Value = "AspNetReadOnlyXmlMembershipProvider";
+                MembershipAddNode.Attributes.Append(MembershipAddAttribute1);
+
+                XmlAttribute MembershipAddAttribute2 = doc.CreateAttribute("type");
+                MembershipAddAttribute2.Value = "ReadOnlyXmlMembershipProvider";
+                MembershipAddNode.Attributes.Append(MembershipAddAttribute2);
+
+                XmlAttribute MembershipAddAttribute3 = doc.CreateAttribute("description");
+                MembershipAddAttribute3.Value = "Read-only XML membership provider";
+                MembershipAddNode.Attributes.Append(MembershipAddAttribute3);
+
+                XmlAttribute MembershipAddAttribute4 = doc.CreateAttribute("xmlFileName");
+                MembershipAddAttribute4.Value = "~/App_Data/users.xml";
+                MembershipAddNode.Attributes.Append(MembershipAddAttribute4);
+
+                ProviderNode.AppendChild(MembershipAddNode);
+
+                parentNode.InsertBefore(MembershipNode, parentNode.FirstChild);
+
+                doc.Save(rootwebConfigPath);
+
+                EventLogReporting(DateTime.Now.ToString("MM-dd-yyyy_HH-mm-ss") + "  Successfully added ASP Membership.                                                     \r\n");
+            }
+            else
+            {
+                EventLogReporting(DateTime.Now.ToString("MM-dd-yyyy_HH-mm-ss") + "  Succesfully detected ASP Membership.                                                     \r\n");
+            }
+        }
+        catch (Exception ex)
+        {
+            string LogResultsError = ex.ToString();
+            EventLogReporting(DateTime.Now.ToString("MM-dd-yyyy_HH-mm-ss") + LogResultsError + "\r\n");
+        }
+    }
+    protected void checkForFomsAuthentication()
+    {
+        XmlDocument FindASPMembership = new XmlDocument();
+        FindASPMembership.Load(rootwebConfigPath);
+        XmlNode xnodes = FindASPMembership.SelectSingleNode("/configuration/system.web/authentication");
+
+        try
+        {
+            if (xnodes == null)
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(rootwebConfigPath);
+
+                XmlNode parentNode = doc.SelectSingleNode("/configuration/system.web");
+
+                XmlNode MembershipNode = doc.CreateElement("authentication");
+                XmlAttribute MembershipAttribute = doc.CreateAttribute("mode");
+                MembershipAttribute.Value = "Forms";
+                MembershipNode.Attributes.Append(MembershipAttribute);
+
+                XmlNode MembershipAddNode = doc.CreateElement("forms");
+                XmlAttribute MembershipAddAttribute1 = doc.CreateAttribute("loginUrl");
+                MembershipAddAttribute1.Value = "~/aspxzipit/zipit-login.aspx";
+                MembershipAddNode.Attributes.Append(MembershipAddAttribute1);
+
+                MembershipNode.AppendChild(MembershipAddNode);
+
+                parentNode.InsertBefore(MembershipNode, parentNode.FirstChild);
+
+                doc.Save(rootwebConfigPath);
+
+                EventLogReporting(DateTime.Now.ToString("MM-dd-yyyy_HH-mm-ss") + "  Successfully added Forms Authentication Mode.                                                     \r\n");
+            }
+            else
+            {
+                EventLogReporting(DateTime.Now.ToString("MM-dd-yyyy_HH-mm-ss") + "  Succesfully detected Form Authentication.                                                     \r\n");
+            }
+        }
+        catch (Exception ex)
+        {
+            string LogResultsError = ex.ToString();
+            EventLogReporting(DateTime.Now.ToString("MM-dd-yyyy_HH-mm-ss") + LogResultsError + "\r\n");
         }
     }
     protected void rebuildApplication()
@@ -373,7 +457,8 @@
         }
         catch (Exception ex)
         {
-            EventLogReporting(ex.ToString());
+            string LogResultsError = ex.ToString();
+            EventLogReporting(DateTime.Now.ToString("MM-dd-yyyy_HH-mm-ss") + LogResultsError);
         }
     }
     protected void EventLogReporting(object LogResults)
@@ -589,9 +674,6 @@
             <br />
             <br />
             <asp:Button runat="server" ID="btnDownload" OnClick="installAspxZipIt_Click" Text="Install AspxZipIt" />
-            <br />
-            <br />
-            <asp:Button runat="server" ID="btnRebuildApplication" ForeColor="Red" OnClick="manual_RebuildApplication_Click" Text="Rebuild Application" />
             <br />
             <br />
             <asp:Label runat="server" ID="lblInfo" ForeColor="Red" Text="" />
