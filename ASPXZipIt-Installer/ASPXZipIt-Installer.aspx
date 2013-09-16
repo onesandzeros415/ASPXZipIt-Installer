@@ -41,7 +41,7 @@
     string fileName16 = "\\ResultPage.aspx";
     string fileName17 = "\\progress.gif";
     string fileName18 = "\\StyleSheet.css";
-    
+
     string installerPath_AppData = path + "App_Data";
     string installerPath_bin = path + "bin";
     string installerPath_aspxzipit = path + "aspxzipit";
@@ -56,12 +56,8 @@
         checkForASPMembership();
         rebuildApplication();
     }
-    
-    //Begin process of installing ASPXZipIt
     protected void installAspxZipIt_Click(object sender, EventArgs e)
     {
-        
-
         string gitHubDotNetVersion35 = "ASPXZipIt-NET35";
         string gitHubDotNetVersion40 = "ASPXZipIt-NET40";
         string gitHubDotNetVersion45 = "ASPXZipIt-NET45";
@@ -82,6 +78,7 @@
             Directory.CreateDirectory(directory);
         }
 
+        //Detect framework version and than download ASPX Zipit
         if (dotNetVersionListBox.SelectedValue == "35")
         {
             try
@@ -126,7 +123,6 @@
             lblInfo.Text = "Please select a .net version from the dropdown.";
         }
     }
-    //Download ASPXZipIt from GitHub
     protected void downloadAspxZipIt(string dotNetVersion)
     {
         string LogResults1 = "  AspxZipIt install has begun.                                                     \r\n";
@@ -134,6 +130,7 @@
         string LogResults3 = "  CloudFiles API Information Written to" + installerPath_aspxzipit + fileName14 + "\r\n";
         string LogResults4 = "  ASPXZipIt crendentials have been set.                                            \r\n";
 
+        //Setup source github urls
         List<string> src = new List<string>();
         src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/App_Data/users.xml");
         src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/Default.aspx");
@@ -148,6 +145,7 @@
         src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/images/progress.gif");
         src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/styles/StyleSheet.css");
 
+        //Setup destination install list
         List<string> dst = new List<string>();
         dst.Add(@installerPath_AppData + fileName1);
         dst.Add(@installerPath_aspxzipit + fileName8);
@@ -162,49 +160,134 @@
         dst.Add(@installerPath_images + fileName17);
         dst.Add(@installerPath_styles + fileName18);
 
+        //Setup .NET 35 exludes list
+        List<string> excludes35 = new List<string>();
+        excludes35.Add(@installerPath_bin + fileName2);
+        excludes35.Add(@installerPath_bin + fileName6);
+        excludes35.Add(@installerPath_bin + fileName7);
+
+        //Setup .NET 40 exludes list
+        List<string> excludes40 = new List<string>();
+        excludes40.Add(@installerPath_bin + fileName2);
+        excludes40.Add(@installerPath_bin + fileName19);
+        excludes40.Add(@installerPath_bin + fileName20);
+        excludes40.Add(@installerPath_bin + fileName21);
+
+        //Setup .NET 45 exludes list
+        List<string> excludes45 = new List<string>();
+        excludes45.Add(@installerPath_bin + fileName19);
+        excludes45.Add(@installerPath_bin + fileName20);
+        excludes45.Add(@installerPath_bin + fileName21);
+
+
         try
         {
             EventLogReporting(DateTime.Now.ToString("MM-dd-yyyy_HH-mm-ss") + LogResults1);
 
             if (dotNetVersion == "ASPXZipIt-NET35")
             {
+                //Add .NET 3.5 specific dll's to source list
                 src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/Ionic.Zip.dll");
                 src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/ASPXZipIt-NET35.dll");
                 src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/OpenStack.Swift.dll");
                 src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/Rackspace.Cloudfiles.dll");
 
+                //Add .NET 3.5 specific dll's to destination list
                 dst.Add(@installerPath_bin + fileName2);
                 dst.Add(@installerPath_bin + fileName3);
                 dst.Add(@installerPath_bin + fileName6);
                 dst.Add(@installerPath_bin + fileName7);
 
+                foreach (string exclude in excludes35)
+                {
+                    if (File.Exists(exclude))
+                    {
+                        //Remove .NET 3.5 specific dll from destination list
+                        dst.Remove(@exclude);
+
+                        //Remove .NET 3.5 specific dll from source github list
+                        string getFileName = Path.GetFileName(exclude);
+                        string srcGitHubList = "https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/" + getFileName;
+                        src.Remove(srcGitHubList);
+
+                        EventLogReporting(DateTime.Now.ToString("MM-dd-yyyy_HH-mm-ss") + "  " + exclude + " already exist and will not be installed. \r\n");
+                    }
+                    else
+                    {
+                        EventLogReporting(DateTime.Now.ToString("MM-dd-yyyy_HH-mm-ss") + "  " + exclude + " does not exist and will be installed. \r\n");
+                    }
+                    continue;
+                }
             }
             else if (dotNetVersion == "ASPXZipIt-NET40")
             {
+                //Add .NET 4.0 specific dll's to source list
                 src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/Ionic.Zip.dll");
                 src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/ASPXZipIt-NET40.dll");
                 src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/Newtonsoft.Json.dll");
                 src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/openstacknet.dll");
                 src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/SimpleRESTServices.dll");
 
+                //Add .NET 4.0 specific dll's to destination list
                 dst.Add(@installerPath_bin + fileName2);
                 dst.Add(@installerPath_bin + fileName4);
                 dst.Add(@installerPath_bin + fileName19);
                 dst.Add(@installerPath_bin + fileName20);
                 dst.Add(@installerPath_bin + fileName21);
+
+                foreach (string exclude in excludes40)
+                {
+                    if (File.Exists(exclude))
+                    {
+                        //Remove .NET 4.0 specific dll from destination list
+                        dst.Remove(@exclude);
+
+                        //Remove .NET 4.0 specific dll from source github list
+                        string getFileName = Path.GetFileName(exclude);
+                        string srcGitHubList = "https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/" + getFileName;
+                        src.Remove(srcGitHubList);
+
+                        EventLogReporting(DateTime.Now.ToString("MM-dd-yyyy_HH-mm-ss") + "  " + exclude + " already exist and will not be installed. \r\n");
+                    }
+                    else
+                    {
+                        EventLogReporting(DateTime.Now.ToString("MM-dd-yyyy_HH-mm-ss") + "  " + exclude + "  does not exist and will be installed. \r\n");
+                    }
+                }
             }
             else if (dotNetVersion == "ASPXZipIt-NET45")
             {
+                //Add .NET 4.5 specific dll's to source list
                 src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/ASPXZipIt-NET45.dll");
                 src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/Newtonsoft.Json.dll");
                 src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/openstacknet.dll");
                 src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/SimpleRESTServices.dll");
 
-
+                //Add .NET 4.5 specific dll's to destination list
                 dst.Add(@installerPath_bin + fileName5);
                 dst.Add(@installerPath_bin + fileName19);
                 dst.Add(@installerPath_bin + fileName20);
                 dst.Add(@installerPath_bin + fileName21);
+
+                foreach (string exclude in excludes45)
+                {
+                    if (File.Exists(exclude))
+                    {
+                        //Remove .NET 4.5 specific dll from destination list
+                        dst.Remove(@exclude);
+
+                        //Remove .NET 4.5 specific dll from source github list
+                        string getFileName = Path.GetFileName(exclude);
+                        string srcGitHubList = "https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/" + getFileName;
+                        src.Remove(srcGitHubList);
+
+                        EventLogReporting(DateTime.Now.ToString("MM-dd-yyyy_HH-mm-ss") + "  " + exclude + " already exist and will not be installed. \r\n");
+                    }
+                    else
+                    {
+                        EventLogReporting(DateTime.Now.ToString("MM-dd-yyyy_HH-mm-ss") + "  " + exclude + "  does not exist and will be installed. \r\n");
+                    }
+                }
             }
 
             // Setting up source and destination and creating a list of the file source and destination.
