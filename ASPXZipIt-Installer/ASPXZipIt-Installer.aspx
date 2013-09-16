@@ -27,6 +27,9 @@
     string fileName5 = "\\ASPXZipIt-NET45.dll";
     string fileName6 = "\\OpenStack.Swift.dll";
     string fileName7 = "\\Rackspace.Cloudfiles.dll";
+    string fileName19 = "\\Newtonsoft.Json.dll";
+    string fileName20 = "\\openstacknet.dll";
+    string fileName21 = "\\SimpleRESTServices.dll";
     string fileName8 = "\\Default.aspx";
     string fileName9 = "\\zipit-db.aspx";
     string fileName10 = "\\zipit-logs.aspx";
@@ -180,24 +183,28 @@
             {
                 src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/Ionic.Zip.dll");
                 src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/ASPXZipIt-NET40.dll");
-                src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/OpenStack.Swift.dll");
-                src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/Rackspace.Cloudfiles.dll");
+                src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/Newtonsoft.Json.dll");
+                src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/openstacknet.dll");
+                src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/SimpleRESTServices.dll");
 
                 dst.Add(@installerPath_bin + fileName2);
                 dst.Add(@installerPath_bin + fileName4);
-                dst.Add(@installerPath_bin + fileName6);
-                dst.Add(@installerPath_bin + fileName7);
+                dst.Add(@installerPath_bin + fileName19);
+                dst.Add(@installerPath_bin + fileName20);
+                dst.Add(@installerPath_bin + fileName21);
             }
             else if (dotNetVersion == "ASPXZipIt-NET45")
             {
                 src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/ASPXZipIt-NET45.dll");
-                src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/OpenStack.Swift.dll");
-                src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/Rackspace.Cloudfiles.dll");
+                src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/Newtonsoft.Json.dll");
+                src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/openstacknet.dll");
+                src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/SimpleRESTServices.dll");
 
 
                 dst.Add(@installerPath_bin + fileName5);
-                dst.Add(@installerPath_bin + fileName6);
-                dst.Add(@installerPath_bin + fileName7);
+                dst.Add(@installerPath_bin + fileName19);
+                dst.Add(@installerPath_bin + fileName20);
+                dst.Add(@installerPath_bin + fileName21);
             }
 
             // Setting up source and destination and creating a list of the file source and destination.
