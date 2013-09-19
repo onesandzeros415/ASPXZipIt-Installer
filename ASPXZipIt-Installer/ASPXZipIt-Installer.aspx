@@ -14,7 +14,7 @@
 <script runat="server">
 
     //ASPXZipIt Designed and Mainted By: Matthew Costello, 1/28/2013, San Antonio, Texas.
-    //Updated : 9/7/2013
+    //Updated to v2 : 9/19/2013
 
     protected static string path = HttpContext.Current.Server.MapPath("~\\");
     protected static string rootwebConfigPath = HttpContext.Current.Server.MapPath("~\\Web.config");
@@ -601,7 +601,7 @@
         body {
             font: 1em "Arial", sans-serif;
             background: #ccc;
-            background: url(https://raw.github.com/jeremehancock/zipit-backup-utility/master/images/background.jpg) no-repeat center center fixed;
+            background: url(https://github.com/onesandzeros415/ASPXZipIt-NET45/raw/master/aspxzipit/assets/images/background.jpg) no-repeat center center fixed;
             -webkit-background-size: cover;
             -moz-background-size: cover;
             -o-background-size: cover;
