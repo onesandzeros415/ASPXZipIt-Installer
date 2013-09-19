@@ -17,42 +17,49 @@
     //Updated : 9/7/2013
 
     protected static string path = HttpContext.Current.Server.MapPath("~\\");
-    string rootwebConfigPath = HttpContext.Current.Server.MapPath("~\\Web.config");
+    protected static string rootwebConfigPath = HttpContext.Current.Server.MapPath("~\\Web.config");
 
-    string aspxZipItInstaller = "\\ASPXZipIt-Installer.aspx";
-    string fileName1 = "\\users.xml";
-    string fileName2 = "\\Ionic.Zip.dll";
-    string fileName3 = "\\ASPXZipIt-NET35.dll";
-    string fileName4 = "\\ASPXZipIt-NET40.dll";
-    string fileName5 = "\\ASPXZipIt-NET45.dll";
-    string fileName6 = "\\OpenStack.Swift.dll";
-    string fileName7 = "\\Rackspace.Cloudfiles.dll";
-    string fileName19 = "\\Newtonsoft.Json.dll";
-    string fileName20 = "\\openstacknet.dll";
-    string fileName21 = "\\SimpleRESTServices.dll";
-    string fileName8 = "\\Default.aspx";
-    string fileName9 = "\\zipit-db.aspx";
-    string fileName10 = "\\zipit-logs.aspx";
-    string fileName11 = "\\zipit-login.aspx";
-    string fileName12 = "\\zipit-settings.aspx";
-    string fileName13 = "\\zipit-success.aspx";
-    string fileName14 = "\\Web.config";
-    string fileName15 = "\\DBResultPage.aspx";
-    string fileName16 = "\\ResultPage.aspx";
-    string fileName17 = "\\progress.gif";
-    string fileName18 = "\\StyleSheet.css";
+    protected static string aspxZipItInstaller = "\\ASPXZipIt-Installer.aspx";
+    protected static string fileName1 = "\\users.xml";
+    protected static string fileName2 = "\\Ionic.Zip.dll";
+    protected static string fileName3 = "\\ASPXZipIt-NET35.dll";
+    protected static string fileName4 = "\\ASPXZipIt-NET40.dll";
+    protected static string fileName5 = "\\ASPXZipIt-NET45.dll";
+    protected static string fileName6 = "\\OpenStack.Swift.dll";
+    protected static string fileName7 = "\\Rackspace.Cloudfiles.dll";
+    protected static string fileName19 = "\\Newtonsoft.Json.dll";
+    protected static string fileName20 = "\\openstacknet.dll";
+    protected static string fileName21 = "\\SimpleRESTServices.dll";
+    protected static string fileName8 = "\\Default.aspx";
+    protected static string fileName26 = "\\Site.Master";
+    protected static string fileName9 = "\\zipit-db.aspx";
+    protected static string fileName10 = "\\zipit-logs.aspx";
+    protected static string fileName11 = "\\zipit-login.aspx";
+    protected static string fileName12 = "\\zipit-settings.aspx";
+    protected static string fileName13 = "\\zipit-success.aspx";
+    protected static string fileName14 = "\\Web.config";
+    protected static string fileName15 = "\\DBResultPage.aspx";
+    protected static string fileName16 = "\\ResultPage.aspx";
+    protected static string fileName17 = "\\progress.gif";
+    protected static string fileName18 = "\\style.css";
+    protected static string fileName22 = "\\background.jpg";
+    protected static string fileName23 = "\\logout.png";
+    protected static string fileName24 = "\\settings.png";
+    protected static string fileName25 = "\\aspxzipit.js";
 
-    string installerPath_AppData = path + "App_Data";
-    string installerPath_bin = path + "bin";
-    string installerPath_aspxzipit = path + "aspxzipit";
-    string installerPath_progress = path + "aspxzipit" + "\\Progress";
-    string installerPath_images = path + "aspxzipit" + "\\Images";
-    string installerPath_styles = path + "aspxzipit" + "\\styles";
-    string installerPath_sqlbak = path + "aspxzipit_sql_bak";
+    protected static string installerPath_AppData = path + "App_Data";
+    protected static string installerPath_bin = path + "bin";
+    protected static string installerPath_aspxzipit = path + "aspxzipit";
+    protected static string installerPath_progress = path + "aspxzipit" + "\\Progress";
+    protected static string installerPath_assets = path + "aspxzipit" + "\\assets";
+    protected static string installerPath_css = path + "aspxzipit" + "\\assets" + "\\css";
+    protected static string installerPath_images = path + "aspxzipit" + "\\assets" + "\\images";
+    protected static string installerPath_js = path + "aspxzipit" + "\\assets" + "\\js";
+    protected static string installerPath_sqlbak = path + "aspxzipit_sql_bak";
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        checkForFomsAuthentication();
+        checkForFormsAuthentication();
         checkForASPMembership();
         rebuildApplication();
     }
@@ -69,8 +76,10 @@
         createDirArray.Add(installerPath_aspxzipit);
         createDirArray.Add(installerPath_sqlbak);
         createDirArray.Add(installerPath_progress);
+        createDirArray.Add(installerPath_assets);
+        createDirArray.Add(installerPath_css);
         createDirArray.Add(installerPath_images);
-        createDirArray.Add(installerPath_styles);
+        createDirArray.Add(installerPath_js);
 
         //Loop though createDirArray to create directories
         foreach (string directory in createDirArray)
@@ -134,6 +143,7 @@
         List<string> src = new List<string>();
         src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/App_Data/users.xml");
         src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/Default.aspx");
+        src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/Site.Master");
         src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/zipit-db.aspx");
         src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/zipit-logs.aspx");
         src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/zipit-login.aspx");
@@ -142,13 +152,18 @@
         src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/Web.config");
         src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/Progress/DBResultPage.aspx");
         src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/Progress/ResultPage.aspx");
-        src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/images/progress.gif");
-        src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/styles/StyleSheet.css");
+        src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/assets/images/progress.gif");
+        src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/assets/css/StyleSheet.css");
+        src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/assets/images/background.jpg");
+        src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/assets/images/logout.png");
+        src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/assets/images/settings.gif");
+        src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/assets/js/aspxzipit.js");
 
         //Setup destination install list
         List<string> dst = new List<string>();
         dst.Add(@installerPath_AppData + fileName1);
         dst.Add(@installerPath_aspxzipit + fileName8);
+        dst.Add(@installerPath_aspxzipit + fileName26);
         dst.Add(@installerPath_aspxzipit + fileName9);
         dst.Add(@installerPath_aspxzipit + fileName10);
         dst.Add(@installerPath_aspxzipit + fileName11);
@@ -158,8 +173,12 @@
         dst.Add(@installerPath_progress + fileName15);
         dst.Add(@installerPath_progress + fileName16);
         dst.Add(@installerPath_images + fileName17);
-        dst.Add(@installerPath_styles + fileName18);
-
+        dst.Add(@installerPath_images + fileName22);
+        dst.Add(@installerPath_images + fileName23);
+        dst.Add(@installerPath_images + fileName24);
+        dst.Add(@installerPath_css + fileName18);
+        dst.Add(@installerPath_js + fileName25);
+          
         //Setup .NET 35 exludes list
         List<string> excludes35 = new List<string>();
         excludes35.Add(@installerPath_bin + fileName2);
@@ -183,7 +202,8 @@
         try
         {
             EventLogReporting(DateTime.Now.ToString("MM-dd-yyyy_HH-mm-ss") + LogResults1);
-
+            
+            //Decide which framework to use and than complete what the src and dst lists will look when downloading below.
             if (dotNetVersion == "ASPXZipIt-NET35")
             {
                 //Add .NET 3.5 specific dll's to source list
@@ -290,7 +310,7 @@
                 }
             }
 
-            // Setting up source and destination and creating a list of the file source and destination.
+            // Setting up a single source and destination key/value pair.
             List<KeyValuePair<string, string>> _srcdstList = new List<KeyValuePair<string, string>>();
 
             for (int i = 0; i < src.Count; i++)
@@ -470,7 +490,7 @@
             EventLogReporting(DateTime.Now.ToString("MM-dd-yyyy_HH-mm-ss") + LogResultsError + "\r\n");
         }
     }
-    protected void checkForFomsAuthentication()
+    protected void checkForFormsAuthentication()
     {
         XmlDocument FindASPMembership = new XmlDocument();
         FindASPMembership.Load(rootwebConfigPath);
@@ -571,202 +591,188 @@
 </script>
 
 <head runat="server">
-    <link href="styles/StyleSheet.css" rel="stylesheet" type="text/css" />
-
     <style id="importcss" runat="server" type="text/css">
-        body {
-            height: 100%;
-            background: #ddd;
-            margin-bottom: 1px;
-        }
-
-        .clear {
-            clear: both;
-        }
-
-        input {
-            border: 1px solid #818185;
-            -moz-border-radius: 15px;
-            border-radius: 15px;
-            height: 30px;
-            width: 200px;
-            padding-left: 8px;
-            padding-right: 8px;
-        }
-
-        .button {
-            border: 1px solid #818185;
-            background-color: #ccc;
-            -moz-border-radius: 15px;
-            border-radius: 15px;
-            text-align: center;
-            width: 100px;
-            color: #000;
-            padding: 3px;
-        }
-
-        .wrapper {
-            width: 700px;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            margin: -225px 0 0 -345px;
-            background-color: #eee;
-            -moz-border-radius: 15px;
-            border-radius: 15px;
-            text-align: center;
-            padding: 20px;
-            -moz-box-shadow: 5px 5px 7px #888;
-            -webkit-box-shadow: 5px 5px 7px #888;
-        }
-
-        a {
-            color: #55688A;
-        }
-
-
-
         * {
             margin: 0;
             padding: 0;
         }
 
-        .group {
-            zoom: 1;
-            position: absolute;
-            top: -47px;
-            left: 24px;
+        body {
+            font: 1em "Arial", sans-serif;
+            background: #ccc;
+            background: url(https://raw.github.com/jeremehancock/zipit-backup-utility/master/images/background.jpg) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            background-color: #7397a7;
         }
 
-        .head {
-            text-align: center;
-            font-family: Fontin, sans-serif;
-            font-size: 28px;
-            margin-bottom: 10px;
+        #wrapper {
+            width: 720px;
+            margin: 40px auto 0;
+            padding-bottom: 20px;
         }
 
+            #wrapper h1 {
+                color: #2E2E2E;
+                margin-bottom: 10px;
+                font-family: 'Source Sans Pro', sans-serif;
+            }
 
-        .tabs {
-            list-style: none;
+            #wrapper a {
+                font-size: 1.2em;
+                color: #108DE3;
+                text-decoration: none;
+                text-align: center;
+            }
+
+        #tabContainer {
             width: 700px;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            margin: -262px 0 0 -325px;
+            padding: 15px;
+            background-color: #2e2e2e;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
         }
 
-            .tabs li {
-                /* Makes a horizontal row */
-                float: left; /* So the psueudo elements can be 			   abs. positioned inside */
+        #tabscontent {
+            -moz-border-radius-topleft: 0px;
+            -moz-border-radius-topright: 5px;
+            -moz-border-radius-bottomright: 5px;
+            -moz-border-radius-bottomleft: 5px;
+            border-top-left-radius: 0px;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            padding: 10px 10px 25px;
+            background: #FFFFFF; /* old browsers */
+            background: -moz-linear-gradient(top, #FFFFFF 0%, #FFFFFF 90%, #e4e9ed 100%); /* firefox */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFFFFF), color-stop(90%,#FFFFFF), color-stop(100%,#e4e9ed)); /* webkit */
+            margin: 0;
+            color: #333;
+        }
+
+        .css3button {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            color: #171717;
+            padding: 10px 20px;
+            background: -moz-linear-gradient(top, #e6e6e6 0%, #a3a3a3);
+            background: -webkit-gradient(linear, left top, left bottom, from(#e6e6e6), to(#a3a3a3));
+            -moz-border-radius: 6px;
+            -webkit-border-radius: 6px;
+            border-radius: 6px;
+            border: 1px solid #d6d6d6;
+            -moz-box-shadow: 0px 0px 0px rgba(000,000,000,0), inset 0px 0px 0px rgba(255,255,255,0);
+            -webkit-box-shadow: 0px 0px 0px rgba(000,000,000,0), inset 0px 0px 0px rgba(255,255,255,0);
+            box-shadow: 0px 0px 0px rgba(000,000,000,0), inset 0px 0px 0px rgba(255,255,255,0);
+            text-shadow: 0px 0px 0px rgba(107,107,107,0), 0px 1px 0px rgba(255,255,255,0.3);
+        }
+
+        input {
+            border: 1px solid #818185;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            height: 30px;
+            width: 170px;
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+
+            input[type=checkbox] {
+                border: 1px solid #818185;
+                -moz-border-radius: 5px;
+                border-radius: 5px;
+                height: 20px;
+                width: 30px;
+                padding-right: 8px;
                 position: relative;
+                top: 2px;
+                margin-right: 5px;
             }
-
-            .tabs a {
-                /* Make them block level 		     and only as wide as they need */
-                float: left;
-                padding: 10px 40px;
-                text-decoration: none; /* Default colors */
-                color: black;
-                background: #CCCCCC; /* Only round the top corners */
-                -webkit-border-top-left-radius: 15px;
-                -webkit-border-top-right-radius: 15px;
-                -moz-border-radius-topleft: 15px;
-                -moz-border-radius-topright: 15px;
-                border-top-left-radius: 15px;
-                border-top-right-radius: 15px;
-            }
-
-            .tabs .active {
-                /* Highest, active tab is on top */
-                z-index: 3;
-            }
-
-                .tabs .active a {
-                    /* Colors when tab is active */
-                    background: #eee;
-                    color: black;
-                }
     </style>
     <title>ASPXZipIt - Installer - .NET 3.5, 4.0</title>
 </head>
 <body>
     <form id="form1" runat="server">
-        <center>
-            <ul class="tabs group">
-                <li class="active"><a href="zipit-logs.aspx" onfocus="this.blur();">Logs</a></li>
-            </ul>
-        </center>
-        <div class="wrapper">
-            Please be sure that your web.config has impersonation enabled before running this installer.  For more information please
+        <div id="wrapper">
+            <h1>Zipit Backup Utility v2.0 </h1>
+            <div id="tabContainer">
+                <div id="tabscontent">
+                    <p>
+                        Please be sure that your web.config has impersonation enabled before running this installer.  For more information please
             see the official Rackspace Cloud Knowledge Center Article on how to enable: <a href="http://www.rackspace.com/knowledge_center/article/how-do-i-add-impersonation-to-my-aspnet-cloud-site" target="_blank">Click Here</a>.
-            <br />
-            <br />
-            <asp:DropDownList ID="dotNetVersionListBox" runat="server">
-                <asp:ListItem Enabled="true" Selected="True" Text="Please Select a .NET Version" Value="0" />
-                <asp:ListItem Enabled="true" Text=".NET 3.5" Value="35" />
-                <asp:ListItem Enabled="true" Text=".NET 4.0" Value="40" />
-                <asp:ListItem Enabled="true" Text=".NET 4.5" Value="45" />
-            </asp:DropDownList>
-            <br />
-            <br />
-            <center>
-                <table>
-                    <tr>
-                        <td style="text-align: center;" colspan="2">
-                            <h1>CloudFiles API Information</h1>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 50%; text-align: right; padding-right: 10px;">CloudFiles Username:
-                        </td>
-                        <td style="width: 50%; text-align: left;">
-                            <asp:TextBox ID="TxtCloudFilesUserName" runat="server"></asp:TextBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 50%; text-align: right; padding-right: 10px;">CloudFiles API Key:
-                        </td>
-                        <td style="width: 50%; text-align: left;">
-                            <asp:TextBox ID="TxtCloudFilesApiKey" runat="server"></asp:TextBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 50%; text-align: right; padding-right: 10px;">ServiceNet:
-                        </td>
-                        <td style="width: 50%; text-align: left;">
-                            <asp:DropDownList ID="ddlServiceNet" runat="server">
-                                <asp:ListItem Text="Enable" Value="true"></asp:ListItem>
-                                <asp:ListItem Text="Disable" Value="false"></asp:ListItem>
-                            </asp:DropDownList>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: center;" colspan="2">
-                            <h1>ASPXZipIt Crendentials</h1>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 50%; text-align: right; padding-right: 10px;">ASPXZipIt Username:
-                        </td>
-                        <td style="width: 50%; text-align: left;">
-                            <asp:TextBox ID="txtAspxZipItUsername" runat="server"></asp:TextBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 50%; text-align: right; padding-right: 10px;">ASPXZipIt Password:
-                        </td>
-                        <td style="width: 50%; text-align: left;">
-                            <asp:TextBox ID="txtAspxZipItPassword" runat="server"></asp:TextBox>
-                        </td>
-                    </tr>
-                </table>
-            </center>
-            <br />
-            <br />
-            <asp:Button runat="server" ID="btnDownload" OnClick="installAspxZipIt_Click" Text="Install AspxZipIt" />
-            <br />
-            <br />
-            <asp:Label runat="server" ID="lblInfo" ForeColor="Red" Text="" />
+                    </p>
+                    <br />
+                    <br />
+                    <center>
+                        <asp:DropDownList ID="dotNetVersionListBox" runat="server">
+                            <asp:ListItem Enabled="true" Selected="True" Text="Please Select a .NET Version" Value="0" />
+                            <asp:ListItem Enabled="true" Text=".NET 3.5" Value="35" />
+                            <asp:ListItem Enabled="true" Text=".NET 4.0" Value="40" />
+                            <asp:ListItem Enabled="true" Text=".NET 4.5" Value="45" />
+                        </asp:DropDownList>
+                    </center>
+                    <br />
+                    <br />
+                    <center>
+                        <table>
+                            <tr>
+                                <td style="text-align: center;" colspan="2">
+                                    <h1>CloudFiles API Information</h1>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 50%; text-align: right; padding-right: 10px;">CloudFiles Username:</td>
+                                <td style="width: 50%; text-align: left;">
+                                    <asp:TextBox ID="TxtCloudFilesUserName" runat="server"></asp:TextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 50%; text-align: right; padding-right: 10px;">CloudFiles API Key:</td>
+                                <td style="width: 50%; text-align: left;">
+                                    <asp:TextBox ID="TxtCloudFilesApiKey" runat="server"></asp:TextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 50%; text-align: right; padding-right: 10px;">ServiceNet:</td>
+                                <td style="width: 50%; text-align: left;">
+                                    <asp:DropDownList ID="ddlServiceNet" runat="server">
+                                        <asp:ListItem Text="Enable" Value="true"></asp:ListItem>
+                                        <asp:ListItem Text="Disable" Value="false"></asp:ListItem>
+                                    </asp:DropDownList>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;" colspan="2">
+                                    <h1>ASPXZipIt Crendentials</h1>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 50%; text-align: right; padding-right: 10px;">ASPXZipIt Username:</td>
+                                <td style="width: 50%; text-align: left;">
+                                    <asp:TextBox ID="txtAspxZipItUsername" runat="server"></asp:TextBox>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 50%; text-align: right; padding-right: 10px;">ASPXZipIt Password:</td>
+                                <td style="width: 50%; text-align: left;">
+                                    <asp:TextBox ID="txtAspxZipItPassword" runat="server"></asp:TextBox>
+                                </td>
+                            </tr>
+                        </table>
+                    </center>
+                    <br />
+                    <br />
+                    <center>
+                        <asp:Button runat="server" ID="btnDownload" CssClass="css3button" OnClick="installAspxZipIt_Click" Text="Install AspxZipIt" />
+                    </center>
+                    <br />
+                    <br />
+                    <asp:Label runat="server" ID="lblInfo" ForeColor="Red" Text="" />
+                </div>
+            </div>
+
         </div>
     </form>
 </body>
