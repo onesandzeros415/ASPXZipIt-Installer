@@ -40,8 +40,8 @@
     protected static string fileName14 = "\\Web.config";
     protected static string fileName15 = "\\DBResultPage.aspx";
     protected static string fileName16 = "\\ResultPage.aspx";
-    protected static string fileName17 = "\\progress.gif";
     protected static string fileName18 = "\\style.css";
+    protected static string fileName17 = "\\progress.gif";
     protected static string fileName22 = "\\background.jpg";
     protected static string fileName23 = "\\logout.png";
     protected static string fileName24 = "\\settings.png";
@@ -152,11 +152,11 @@
         src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/Web.config");
         src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/Progress/DBResultPage.aspx");
         src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/Progress/ResultPage.aspx");
+        src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/assets/css/style.css");
         src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/assets/images/progress.gif");
-        src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/assets/css/StyleSheet.css");
         src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/assets/images/background.jpg");
         src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/assets/images/logout.png");
-        src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/assets/images/settings.gif");
+        src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/assets/images/settings.png");
         src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/assets/js/aspxzipit.js");
 
         //Setup destination install list
@@ -172,11 +172,11 @@
         dst.Add(@installerPath_aspxzipit + fileName14);
         dst.Add(@installerPath_progress + fileName15);
         dst.Add(@installerPath_progress + fileName16);
+        dst.Add(@installerPath_css + fileName18);
         dst.Add(@installerPath_images + fileName17);
         dst.Add(@installerPath_images + fileName22);
         dst.Add(@installerPath_images + fileName23);
         dst.Add(@installerPath_images + fileName24);
-        dst.Add(@installerPath_css + fileName18);
         dst.Add(@installerPath_js + fileName25);
           
         //Setup .NET 35 exludes list
@@ -207,6 +207,7 @@
             if (dotNetVersion == "ASPXZipIt-NET35")
             {
                 //Add .NET 3.5 specific dll's to source list
+            https://github.com/onesandzeros415/ASPXZipIt-NET45/raw/master/bin/ASPXZipIt-NET45.dll
                 src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/Ionic.Zip.dll");
                 src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/ASPXZipIt-NET35.dll");
                 src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/bin/OpenStack.Swift.dll");
