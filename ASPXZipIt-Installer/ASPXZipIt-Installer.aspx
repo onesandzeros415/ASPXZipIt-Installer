@@ -47,26 +47,26 @@
     protected static string fileName24 = "\\settings.png";
     protected static string fileName25 = "\\aspxzipit.js";
 
-    protected static string assets_css_jqery_ui = "jquery-ui.css";
-    protected static string assets_css_imgs_1 = "animated-overlay.gif";
-    protected static string assets_css_imgs_2 = "ui-bg_flat_55_999999_40x100.png";
-    protected static string assets_css_imgs_3 = "ui-bg_flat_75_aaaaaa_40x100.png";
-    protected static string assets_css_imgs_4 = "ui-bg_glass_0_0078ae_1x400.png";
-    protected static string assets_css_imgs_5 = "ui-bg_glass_0_79c9ec_1x400.png";
-    protected static string assets_css_imgs_6 = "ui-bg_glass_0_f8da4e_1x400.png";
-    protected static string assets_css_imgs_7 = "ui-bg_gloss-wave_0_6eac2c_500x100.png";
-    protected static string assets_css_imgs_8 = "ui-bg_gloss-wave_0_2191c0_500x100.png";
-    protected static string assets_css_imgs_9 = "ui-bg_gloss-wave_0_e14f1c_500x100.png";
-    protected static string assets_css_imgs_10 = "ui-bg_inset-hard_0_fcfdfd_1x100.png";
-    protected static string assets_css_imgs_11 = "ui-icons_056b93_256x240.png";
-    protected static string assets_css_imgs_12 = "ui-icons_0078ae_256x240.png";
-    protected static string assets_css_imgs_13 = "ui-icons_d8e7f3_256x240.png";
-    protected static string assets_css_imgs_14 = "ui-icons_e0fdff_256x240.png";
-    protected static string assets_css_imgs_15 = "ui-icons_f5e175_256x240.png";
-    protected static string assets_css_imgs_16 = "ui-icons_f7a50d_256x240.png";
-    protected static string assets_css_imgs_17 = "ui-icons_fcd113_256x240.png";
-    protected static string assets_js_jquery = "jquery-1.10.2.js";
-    protected static string assets_js_jquery_ui = "jquery-ui-1.10.3.custom.js";
+    protected static string assets_css_jqery_ui = "\\jquery-ui.css";
+    protected static string assets_css_imgs_1 = "\\animated-overlay.gif";
+    protected static string assets_css_imgs_2 = "\\ui-bg_flat_55_999999_40x100.png";
+    protected static string assets_css_imgs_3 = "\\ui-bg_flat_75_aaaaaa_40x100.png";
+    protected static string assets_css_imgs_4 = "\\ui-bg_glass_0_0078ae_1x400.png";
+    protected static string assets_css_imgs_5 = "\\ui-bg_glass_0_79c9ec_1x400.png";
+    protected static string assets_css_imgs_6 = "\\ui-bg_glass_0_f8da4e_1x400.png";
+    protected static string assets_css_imgs_7 = "\\ui-bg_gloss-wave_0_6eac2c_500x100.png";
+    protected static string assets_css_imgs_8 = "\\ui-bg_gloss-wave_0_2191c0_500x100.png";
+    protected static string assets_css_imgs_9 = "\\ui-bg_gloss-wave_0_e14f1c_500x100.png";
+    protected static string assets_css_imgs_10 = "\\ui-bg_inset-hard_0_fcfdfd_1x100.png";
+    protected static string assets_css_imgs_11 = "\\ui-icons_056b93_256x240.png";
+    protected static string assets_css_imgs_12 = "\\ui-icons_0078ae_256x240.png";
+    protected static string assets_css_imgs_13 = "\\ui-icons_d8e7f3_256x240.png";
+    protected static string assets_css_imgs_14 = "\\ui-icons_e0fdff_256x240.png";
+    protected static string assets_css_imgs_15 = "\\ui-icons_f5e175_256x240.png";
+    protected static string assets_css_imgs_16 = "\\ui-icons_f7a50d_256x240.png";
+    protected static string assets_css_imgs_17 = "\\ui-icons_fcd113_256x240.png";
+    protected static string assets_js_jquery = "\\jquery-1.10.2.js";
+    protected static string assets_js_jquery_ui = "\\jquery-ui-1.10.3.custom.js";
 
 
     protected static string installerPath_AppData = path + "App_Data";
@@ -216,8 +216,8 @@
         src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/assets/css/images/ui-icons_f5e175_256x240.png");
         src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/assets/css/images/ui-icons_f7a50d_256x240.png");
         src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/assets/css/images/ui-icons_fcd113_256x240.png");
-        src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/assets/css/images/js/jquery-1.10.2.js");
-        src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/assets/css/images/js/jquery-ui-1.10.3.custom.js");
+        src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/assets/js/jquery-1.10.2.js");
+        src.Add("https://github.com/onesandzeros415/" + dotNetVersion + "/raw/master/aspxzipit/assets/js/jquery-ui-1.10.3.custom.js");
 
         //Setup destination install list
         List<string> dst = new List<string>();
