@@ -128,7 +128,7 @@
                 {
                     downloadAspxZipIt(gitHubDotNetVersion35);
 
-                    Response.Redirect("/aspxzipit/Default.aspx", true);
+                    Response.Redirect("/aspxzipit/Default.aspx", false);
                 }
                 catch (Exception ex)
                 {
@@ -141,7 +141,7 @@
                 {
                     downloadAspxZipIt(gitHubDotNetVersion40);
 
-                    Response.Redirect("/aspxzipit/Default.aspx", true);
+                    Response.Redirect("/aspxzipit/Default.aspx", false);
                 }
                 catch (Exception ex)
                 {
@@ -154,7 +154,7 @@
                 {
                     downloadAspxZipIt(gitHubDotNetVersion45);
 
-                    Response.Redirect("/aspxzipit/Default.aspx", true);
+                    Response.Redirect("/aspxzipit/Default.aspx", false);
                 }
                 catch (Exception ex)
                 {
